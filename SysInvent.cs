@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 class Almacenpues
 {
@@ -71,6 +72,9 @@ class Almacenpues
             Console.WriteLine("2. Salir");
             System.Console.WriteLine("3. Buscar arma por código");
             System.Console.WriteLine("4. Modificar atributos de arma existente");
+            //añadiendo sistema de insertar  y eliminar arma
+            System.Console.WriteLine("5. Insertar arma en posicion especifica");
+            System.Console.WriteLine("6. Eliminar arma");
 
             Console.Write("\nSeleccione una opcion: ");
             opcion = int.Parse(Console.ReadLine());
@@ -136,7 +140,14 @@ class Almacenpues
                 case 4:
                     ModificarArmaPorCodigo();
                     break;
-
+                case 5:
+                //Sistema de inserción de la posición de arma
+                    InsertarPosicionDeArma();
+                    break;
+                case 6:
+                //Sistema de eliminación de arma
+                    EliminarArma();
+                    break;
                 default:
 
                     //si escribe cualquier otra cosa
@@ -258,5 +269,100 @@ class Almacenpues
             System.Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
             Console.ReadKey();
         }
+    } 
+    //Sistema de Codigo para la posicion del arma
+    static void InsertarPosicionDeArma()
+    
+    {
+        Console.Clear();
+        System.Console.WriteLine("============================================");
+        System.Console.WriteLine(" INSERTA TU ARMA EN UNA POSICIÓN ESPECÍFICA ");
+        System.Console.WriteLine("============================================");
+        if (cantidad >= MAX)
+        {
+            System.Console.WriteLine("El almacen esta lleno.");
+            Console.ReadKey();
+            return;
+        }
+        System.Console.WriteLine("Ingrese la posicion del arma para insertar: ");
+        int posicion = int.Parse(Console.ReadLine());
+        if (posicion < 0 || posicion > cantidad)
+        {
+            System.Console.WriteLine("Posición del arma no válida.");
+            Console.ReadKey();
+            return;
+        }
+        for (int i = cantidad; i > posicion; i--)
+        {
+            codigos[i] = codigos[i - 1];
+            nombres[i] = nombres[i - 1];
+            precios[i] = precios[i - 1];
+            danos[i] = danos[i - 1];
+            precisiones[i] = precisiones[i - 1];
+            alcances[i] = alcances[i - 1];
+            stocks[i] = stocks[i - 1];
+        }
+        System.Console.WriteLine("Codigo:");
+        codigos[posicion] = Console.ReadLine();
+        System.Console.WriteLine("Nombre:");
+        nombres[posicion] = Console.ReadLine();
+        System.Console.WriteLine("Precio:");
+        precios[posicion] = double.Parse(Console.ReadLine());
+        System.Console.WriteLine("Daño:");
+        danos[posicion] = double.Parse(Console.ReadLine());
+        System.Console.WriteLine("Presicion:");
+        precisiones[posicion] = double.Parse(Console.ReadLine());
+        System.Console.WriteLine("Alcance:");
+        alcances[posicion] = double.Parse(Console.ReadLine());
+        System.Console.WriteLine("Stock:");
+        stocks[posicion] = int.Parse(Console.ReadLine());
+        cantidad++;
+        System.Console.WriteLine("\nTu arma ha sido inserta con exito :D. ");
+        Console.ReadKey();
+    }
+    //Ahora el sistema de codigo para poder eliminar el arma
+    static void EliminarArma()
+    {
+        Console.Clear();
+        System.Console.WriteLine("========================================");
+        System.Console.WriteLine("            ELIMINA TU ARMA             ");
+        System.Console.WriteLine("========================================");
+        if (cantidad == 0)
+        {
+            System.Console.WriteLine("No hay armas registradas para eliminar D:");
+            Console.ReadKey();
+            return;
+        }
+        System.Console.WriteLine("Por favor ingresa el código de el arma a eliminar");
+        string codEliminar = Console.ReadLine();
+        int posicion = -1;
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (codigos[i] == codEliminar)
+            {
+                posicion = i;
+                break;
+            }
+        }
+        if (posicion == -1)
+        {
+            System.Console.WriteLine("Tu arma no se encontró ");
+            Console.ReadKey();
+            return;
+        }
+        for (int i = posicion; i < cantidad - 1; i++)
+        {
+            codigos[i] = codigos[ i + 1];
+            nombres[i] = nombres[ i + 1];
+            precios[i] = precios[ i + 1];
+            danos[i] = danos[ i + 1];
+            precisiones[i] = precisiones[ i + 1];
+            alcances[i] = alcances[ i + 1];
+            stocks[i] = stocks[ i + 1];
+        }
+        cantidad--;
+        System.Console.WriteLine("\nTu arma se eliminó.... D:");
+        Console.ReadKey();
+        
     }
 }
