@@ -70,6 +70,7 @@ class Almacenpues
             Console.WriteLine("\n1. Anadir arma");
             Console.WriteLine("2. Salir");
             System.Console.WriteLine("3. Buscar arma por código");
+            System.Console.WriteLine("4. Modificar atributos de arma existente");
 
             Console.Write("\nSeleccione una opcion: ");
             opcion = int.Parse(Console.ReadLine());
@@ -132,6 +133,9 @@ class Almacenpues
                     //sistema de busqueda
                     BuscarArmaPorCodigo();
                     break;
+                case 4:
+                    ModificarArmaPorCodigo();
+                    break;
 
                 default:
 
@@ -193,5 +197,66 @@ class Almacenpues
         }
         System.Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
         Console.ReadKey();
+    }
+    static void ModificarArmaPorCodigo()
+    {
+        Console.Clear();
+        System.Console.WriteLine("====================================================");
+        System.Console.WriteLine("                   MODIFICAR ARMA                   ");
+        System.Console.WriteLine("====================================================");
+
+        if (cantidad==0)
+        {
+            System.Console.WriteLine("El almacén está vacío, no hay armas registradas para modificar.");
+            System.Console.WriteLine("Presione cualquier tecla para continuar...");
+            Console.ReadKey();
+            return;
+        }
+        System.Console.WriteLine("Ingrese el código del arma que desee modificar: ");
+        string codigoBuscar=Console.ReadLine().Trim();
+
+        bool encontrado=false;
+
+        for(int i=0;i<cantidad;i++)
+        {
+            if (codigos[i].Equals(codigoBuscar,StringComparison.OrdinalIgnoreCase))
+            {
+                encontrado=true;
+
+                System.Console.WriteLine("======================================================");
+                System.Console.WriteLine($"           ARMA LOCALIZADA EN POSICIÓN {i}           ");
+                System.Console.WriteLine("======================================================");
+                System.Console.WriteLine($"Nombre actual: {nombres[i]} | Precio: {precios[i]} | Daño: {danos[i]}");
+                System.Console.WriteLine("======================================================");
+                System.Console.WriteLine("Ingrese los nuevos datos técnicos del arma:");
+
+                System.Console.Write("Nuevo Nombre: ");
+                nombres[i]=Console.ReadLine();
+
+                System.Console.Write("Nuevo Precio: ");
+                precios[i]=double.Parse(Console.ReadLine());
+
+                System.Console.Write("Nuevo Daño: ");
+                danos[i]=double.Parse(Console.ReadLine());
+
+                System.Console.Write("Nueva Precisión: ");
+                precisiones[i]=double.Parse(Console.ReadLine());
+
+                System.Console.Write("Nuevo Alcance: ");
+                alcances[i]=double.Parse(Console.ReadLine());
+
+                System.Console.Write("Nuevo Stock: ");
+                stocks[i]=int.Parse(Console.ReadLine());
+                System.Console.Write("Atributos modificados correctamente.");
+                Console.ReadKey();
+                break;
+            }
+        }
+        if(!encontrado)
+        {
+            System.Console.WriteLine($"No se encontró ningún arma con el código {codigoBuscar}.");
+            System.Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+            Console.ReadKey();
+        }
     }
 }
