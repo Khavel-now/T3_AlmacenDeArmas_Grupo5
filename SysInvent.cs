@@ -2,6 +2,23 @@ using System;
 
 class Almacenpues
 {
+    //constante entera que define el limite maximo de "items" en el almacen
+    const int MAX = 100;
+
+    //los arreglos, cada [] guarda datos de su tipo especifico: string, double, int
+    static string[] codigos = new string[MAX];
+    static string[] nombres = new string[MAX];
+
+    static double[] precios = new double[MAX];
+    static double[] danos = new double[MAX];
+    static double[] precisiones = new double[MAX];
+    static double[] alcances = new double[MAX];
+
+    static int[] stocks = new int[MAX];
+
+    //cuenta cuantas armas existen actualmente en el almacen
+    static int cantidad = 0;
+
     //inicio del programa en si
     static void Main()
     {
@@ -24,15 +41,26 @@ class Almacenpues
         {
             Console.Clear();
 
-            //aqui deberia mostrarse el almacen en general, justo aaaaquiii
-            //por ahora esta vacio porque aun no existen armas
+            //ya existe el almacen aunque este vacio en principio
 
             Console.WriteLine("====================================================================================================");
             Console.WriteLine("| Codigo | Nombre | Precio | Dano | Precision | Alcance | Stock |");
             Console.WriteLine("====================================================================================================");
 
-            //aqui en algun momento deberian aparecer las armas
-            //pero todavia no existe ninguna forma de guardarlas
+            //ahora si existen armas, por eso waah recorre
+            //desde la posicion 0 hasta la ultima registrada
+
+            for (int waah = 0; waah < cantidad; waah++)
+            {
+                Console.WriteLine(
+                    $"| {codigos[waah]} " +
+                    $"| {nombres[waah]} " +
+                    $"| {precios[waah]} " +
+                    $"| {danos[waah]} " +
+                    $"| {precisiones[waah]} " +
+                    $"| {alcances[waah]} " +
+                    $"| {stocks[waah]} |");
+            }
 
             Console.WriteLine("====================================================================================================");
 
@@ -58,32 +86,37 @@ class Almacenpues
                     Console.WriteLine("\nComplete las especificaciones necesarias");
                     Console.WriteLine("del articulo.\n");
 
-                    //todavia no existe ninguna forma de escribir
-                    //ni guardar datos, esta pantalla es puramente la "cara"
+                    Console.Write("Codigo: ");
+                    codigos[cantidad] = Console.ReadLine();
 
-                    Console.WriteLine("Codigo:");
-                    Console.WriteLine();
+                    Console.Write("Nombre: ");
+                    nombres[cantidad] = Console.ReadLine();
 
-                    Console.WriteLine("Nombre:");
-                    Console.WriteLine();
+                    Console.Write("Precio: ");
+                    precios[cantidad] = double.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Precio:");
-                    Console.WriteLine();
+                    Console.Write("Dano: ");
+                    danos[cantidad] = double.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Dano:");
-                    Console.WriteLine();
+                    Console.Write("Precision: ");
+                    precisiones[cantidad] = double.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Precision:");
-                    Console.WriteLine();
+                    Console.Write("Alcance: ");
+                    alcances[cantidad] = double.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Alcance:");
-                    Console.WriteLine();
+                    Console.Write("Stock: ");
+                    stocks[cantidad] = int.Parse(Console.ReadLine());
 
-                    Console.WriteLine("Stock:");
+                    //si se llega hasta aqui significa que
+                    //todos los datos ya fueron guardados
 
-                    Console.WriteLine("\n(Version en construccion)");
+                    cantidad++;
+
+                    Console.WriteLine("\nArma agregada correctamente.");
 
                     //para que el usuario tenga tiempo de ver la pantalla
+                    //quizas deba añadir una funcion para editar antes de almacenar
+                    //pero si habra una directamente de editar despues de almacenar
 
                     Console.ReadKey();
                     break;
