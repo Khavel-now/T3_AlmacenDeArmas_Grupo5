@@ -69,6 +69,7 @@ class Almacenpues
 
             Console.WriteLine("\n1. Anadir arma");
             Console.WriteLine("2. Salir");
+            System.Console.WriteLine("3. Buscar arma por código");
 
             Console.Write("\nSeleccione una opcion: ");
             opcion = int.Parse(Console.ReadLine());
@@ -127,6 +128,10 @@ class Almacenpues
 
                     Console.WriteLine("\nSaliendo del sistema...\n");
                     break;
+                case 3:
+                    //sistema de busqueda
+                    BuscarArmaPorCodigo();
+                    break;
 
                 default:
 
@@ -141,5 +146,52 @@ class Almacenpues
 
         //mientras opcion sea distinta de 2
         //el almacen seguira funcionando
+    }
+    //Parte 2 - metodo de busqueda por ID
+    static void BuscarArmaPorCodigo()
+    {
+        Console.Clear();
+        System.Console.WriteLine("====================================================");
+        System.Console.WriteLine("               BUSCAR ARMA POR CODIGO               ");
+        System.Console.WriteLine("====================================================");
+
+        if(cantidad==0)
+        {
+            System.Console.WriteLine("El almacén está vacío, no hay armas registradas para buscar.");
+            System.Console.WriteLine("Presione cualquier tecla para continuar...");
+            Console.ReadKey();
+            return;
+        }
+        System.Console.WriteLine("Ingrese el código del arma que desee buscar: ");
+        string codigoBuscar=Console.ReadLine().Trim();
+
+        bool encontrado=false;
+
+        for(int i=0;i<cantidad;i++)
+        {
+            if(codigos[i].Equals(codigoBuscar,StringComparison.OrdinalIgnoreCase))
+            {
+                System.Console.WriteLine("=======================================================");
+                System.Console.WriteLine("                    ARMA ENCONTRADA                    ");
+                System.Console.WriteLine("=======================================================");
+                System.Console.WriteLine($"Posición de Registro : {i}");
+                System.Console.WriteLine($"Código               : {codigos[i]}");
+                System.Console.WriteLine($"Nombre               : {nombres[i]}");
+                System.Console.WriteLine($"Precio               : {precios[i]}");
+                System.Console.WriteLine($"Daño                 : {danos[i]}");
+                System.Console.WriteLine($"Precisión            : {precisiones[i]}");
+                System.Console.WriteLine($"Alcance              : {alcances[i]}");
+                System.Console.WriteLine($"Stock                : {stocks[i]}");
+                System.Console.WriteLine("=======================================================");
+                encontrado=true;
+                break;
+            }
+        }
+        if(!encontrado)
+        {
+            System.Console.WriteLine($"No se encontro ningún arma con el código {codigoBuscar}.");
+        }
+        System.Console.WriteLine("Presione cualquier tecla para volver al menú principal...");
+        Console.ReadKey();
     }
 }
