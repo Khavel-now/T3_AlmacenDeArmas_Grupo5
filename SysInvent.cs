@@ -75,7 +75,10 @@ class Almacenpues
             //añadiendo sistema de insertar  y eliminar arma
             System.Console.WriteLine("5. Insertar arma en posicion especifica");
             System.Console.WriteLine("6. Eliminar arma");
+            //funcion para ordenar implementada!
             Console.WriteLine("7. Ordenar arsenal por precio");
+            //"estasdisticas" implementadas - jim carrey referencia
+            Console.WriteLine("8. Ver estadisticas del arsenal");
 
             Console.Write("\nSeleccione una opcion: ");
             opcion = int.Parse(Console.ReadLine());
@@ -152,6 +155,10 @@ class Almacenpues
                 //Siempre y ante todo, el orden!
                 case 7:
                     OrdenarArsenalPoorPrecio();
+                    break;
+                //LAs estadisticas tambien son importantes
+                case 8:
+                    MostrarEstadisticas();
                     break;
                 default:
 
@@ -371,6 +378,7 @@ class Almacenpues
         
     }
 
+
     //toca poner orden en el hogar!  
     static void OrdenarArsenalPoorPrecio()
     
@@ -437,5 +445,105 @@ class Almacenpues
         Console.WriteLine("Orden aplicado: Menor precio -> Mayor precio");
 
         Console.ReadKey();
+    
+    //detalle pequeño pero importante correjido - la llave
+    //de cierre estaba en una ubicacion erronea
+    }
+
+
+    //las estadisticas, porque un verdadero comandante quispe
+    //debe conocer el estado de su arsenal
+
+    static void MostrarEstadisticas()
+    {
+        Console.Clear();
+
+        Console.WriteLine("========================================");
+        Console.WriteLine("       ESTADISTICAS DEL ARSENAL");
+        Console.WriteLine("========================================");
+
+        if (cantidad == 0)
+        {
+            Console.WriteLine("No existen armas registradas.");
+            Console.ReadKey();
+            return;
+        }
+
+        //estas variables almacenaran los resultados
+        //de los calculos
+        double sumaPrecios = 0;
+        int stockTotal = 0;
+
+        //guardaremos posiciones para luego mostrar
+        //la informacion completa del arma
+        int posMasCara = 0;
+        int posMasBarata = 0;
+        int posMayorDano = 0;
+
+        //recorriendo todo el arsenal, como si inspeccionara cada arma
+        //(como la señora "i" esta cansada, la seño "k"
+        //sera su reemplazo... por ahora)
+        for (int k = 0; k < cantidad; k++)
+        {
+            sumaPrecios += precios[k];
+
+            stockTotal += stocks[k];
+
+            if (precios[k] > precios[posMasCara])
+            {
+                posMasCara = k;
+            }
+
+            if (precios[k] < precios[posMasBarata])
+            {
+                posMasBarata = k;
+            }
+
+            if (danos[k] > danos[posMayorDano])
+            {
+                posMayorDano = k;
+            }
+        }
+
+        double promedioPrecio = sumaPrecios / cantidad;
+
+        //ahora lo mas... tedioso pero simple, la presentacion!!
+        Console.WriteLine($"\nTotal de armas registradas: {cantidad}");
+        
+        //f2 para limitar el decimal
+        Console.WriteLine($"\nPrecio promedio del arsenal: {promedioPrecio:F2}");
+
+        Console.WriteLine($"\nStock total disponible: {stockTotal}");
+
+        Console.WriteLine("\n----------------------------------------");
+        Console.WriteLine("ARMA MAS CARA");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine($"Codigo : {codigos[posMasCara]}");
+        Console.WriteLine($"Nombre : {nombres[posMasCara]}");
+        Console.WriteLine($"Precio : {precios[posMasCara]}");
+
+        Console.WriteLine("\n----------------------------------------");
+        Console.WriteLine("ARMA MAS BARATA");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine($"Codigo : {codigos[posMasBarata]}");
+        Console.WriteLine($"Nombre : {nombres[posMasBarata]}");
+        Console.WriteLine($"Precio : {precios[posMasBarata]}");
+
+        Console.WriteLine("\n----------------------------------------");
+        Console.WriteLine("ARMA CON MAYOR DANO");
+        Console.WriteLine("----------------------------------------");
+
+        Console.WriteLine($"Codigo : {codigos[posMayorDano]}");
+        Console.WriteLine($"Nombre : {nombres[posMayorDano]}");
+        Console.WriteLine($"Dano   : {danos[posMayorDano]}");
+
+        Console.WriteLine("\n========================================");
+        Console.WriteLine("   Fin del informe tactico del arsenal.");
+        Console.WriteLine("========================================");
+
+        Console.ReadKey();
 }
+    
 }
