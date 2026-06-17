@@ -42,10 +42,11 @@ class Almacenpues
         {
             Console.Clear();
 
-            //ya existe el almacen aunque este vacio en principio
+            //ya existe el almacen -
+            //correji la presentacion del almacen
 
-            Console.WriteLine("====================================================================================================");
-            Console.WriteLine("| Codigo | Nombre | Precio | Dano | Precision | Alcance | Stock |");
+            Console.WriteLine("\n\n====================================================================================================");
+            Console.WriteLine("| Codigo    | Nombre                   | Precio    | Daño      | Precision   | Alcance   | Stock   |");
             Console.WriteLine("====================================================================================================");
 
             //ahora si existen armas, por eso waah recorre
@@ -54,13 +55,15 @@ class Almacenpues
             for (int waah = 0; waah < cantidad; waah++)
             {
                 Console.WriteLine(
-                    $"| {codigos[waah]} " +
-                    $"| {nombres[waah]} " +
-                    $"| {precios[waah]} " +
-                    $"| {danos[waah]} " +
-                    $"| {precisiones[waah]} " +
-                    $"| {alcances[waah]} " +
-                    $"| {stocks[waah]} |");
+
+                    //puse limite a... los caracteres que se pueden usar
+                    $"| {codigos[waah],-10}" +
+                    $"| {nombres[waah],-25}" +
+                    $"| {precios[waah],-10}" +
+                    $"| {danos[waah],-10}" +
+                    $"| {precisiones[waah],-12}" +
+                    $"| {alcances[waah],-10}" +
+                    $"| {stocks[waah],-8} |");
             }
 
             Console.WriteLine("====================================================================================================");
