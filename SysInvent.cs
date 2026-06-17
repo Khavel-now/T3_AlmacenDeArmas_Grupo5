@@ -547,6 +547,12 @@ class Almacenpues
         Console.WriteLine("========================================");
 
         Console.ReadKey();
-}
+    }
     
 }
+
+
+//Declaramos que el presente trabajo fue desarrollado
+//por los integrantes del equipo, sin generación de código, 
+//informe o solución mediante herramientas de inteligencia artificial 
+//generativa. El historial de GitHub refleja nuestro proceso de trabajo y participación.
