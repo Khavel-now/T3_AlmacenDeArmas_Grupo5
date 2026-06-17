@@ -75,6 +75,7 @@ class Almacenpues
             //añadiendo sistema de insertar  y eliminar arma
             System.Console.WriteLine("5. Insertar arma en posicion especifica");
             System.Console.WriteLine("6. Eliminar arma");
+            Console.WriteLine("7. Ordenar arsenal por precio");
 
             Console.Write("\nSeleccione una opcion: ");
             opcion = int.Parse(Console.ReadLine());
@@ -147,6 +148,10 @@ class Almacenpues
                 case 6:
                 //Sistema de eliminación de arma
                     EliminarArma();
+                    break;
+                //Siempre y ante todo, el orden!
+                case 7:
+                    OrdenarArsenalPoorPrecio();
                     break;
                 default:
 
@@ -310,7 +315,7 @@ class Almacenpues
         precios[posicion] = double.Parse(Console.ReadLine());
         System.Console.WriteLine("Daño:");
         danos[posicion] = double.Parse(Console.ReadLine());
-        System.Console.WriteLine("Presicion:");
+        System.Console.WriteLine("Presicion:");//XD
         precisiones[posicion] = double.Parse(Console.ReadLine());
         System.Console.WriteLine("Alcance:");
         alcances[posicion] = double.Parse(Console.ReadLine());
@@ -365,4 +370,72 @@ class Almacenpues
         Console.ReadKey();
         
     }
+
+    //toca poner orden en el hogar!  
+    static void OrdenarArsenalPoorPrecio()
+    
+    {
+        Console.Clear();
+
+        Console.WriteLine("========================================");
+        Console.WriteLine("      ORDENAR ARSENAL POR PRECIO");
+        Console.WriteLine("========================================");
+
+        if (cantidad <= 1)
+        {
+            //mensajito por si el usuario es... ###!!!
+            Console.WriteLine("No hay suficientes armas para ordenar pues!!!!!");
+            Console.ReadKey();
+            return;
+        }
+
+        //uso de variable formales como robocop
+        for (int i = 0; i < cantidad - 1; i++)
+        {
+            for (int j = 0; j < cantidad - i - 1; j++)
+            {
+                if (precios[j] > precios[j + 1])
+                {
+                    //aplicando temp, el arte oscura para
+                    //un buen intercambio de valores
+                    string tempCodigo = codigos[j];
+                    codigos[j] = codigos[j + 1];
+                    codigos[j + 1] = tempCodigo;
+
+                    string tempNombre = nombres[j];
+                    nombres[j] = nombres[j + 1];
+                    nombres[j + 1] = tempNombre;
+
+                    double tempPrecio = precios[j];
+                    precios[j] = precios[j + 1];
+                    precios[j + 1] = tempPrecio;
+
+                    double tempDano = danos[j];
+                    danos[j] = danos[j + 1];
+                    danos[j + 1] = tempDano;
+
+                    double tempPrecision = precisiones[j];
+                    precisiones[j] = precisiones[j + 1];
+                    precisiones[j + 1] = tempPrecision;
+
+                    double tempAlcance = alcances[j];
+                    alcances[j] = alcances[j + 1];
+                    alcances[j + 1] = tempAlcance;
+
+                    int tempStock = stocks[j];
+                    stocks[j] = stocks[j + 1];
+                    stocks[j + 1] = tempStock;
+                    //un infortunio pero algo necesario: cuando se
+                    //intercambian posiciones de articulos se debe
+                    //intercambiar tambien cada dato
+                    //uno por uno
+                }
+            }
+        }
+
+        Console.WriteLine("\nArsenal ordenado correctamente, preciado usuario!.");
+        Console.WriteLine("Orden aplicado: Menor precio -> Mayor precio");
+
+        Console.ReadKey();
+}
 }
